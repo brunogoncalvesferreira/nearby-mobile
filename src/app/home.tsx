@@ -12,6 +12,7 @@ import type { PlaceProps } from "@/components/place"
 import { Places } from "@/components/places"
 
 import MapView, { Callout, Marker } from 'react-native-maps'
+import { router } from "expo-router"
 /* import * as Location from 'expo-location' */
 
 type MarketProps = PlaceProps & {
@@ -83,6 +84,7 @@ export default function Home() {
     fetchMarkets()
   }, [category])
 
+
   return (
     <View style={{ flex: 1, backgroundColor: "#cccccc" }}>
       <Categories 
@@ -109,33 +111,25 @@ export default function Home() {
           image={require("@/assets/location.png")}
         />  
 
-        {markets.map(market => (
+        {markets.map(item => (
           <Marker
-            key={market.id}
-            identifier={market.id}
+            key={item.id}
+            identifier={item.id}
             coordinate={{
-              latitude: market.latitude,
-              longitude: market.longitude
+              latitude: item.latitude,
+              longitude: item.longitude
             }}
             image={require("@/assets/pin.png")}
           >
-            <Callout>
+            <Callout onPress={() => router.navigate(`/market/${item.id}`)}>
               <View>
                 <Text 
-                  style={{ 
-                    fontSize: 14, 
-                    color: colors.gray[600], 
-                    fontFamily: fontFamily.medium 
-                  }}>
-                    {market.name}
+                  >
+                    {item.name}
                   </Text>
                 <Text 
-                  style={{ 
-                    fontSize: 12, 
-                    color: colors.gray[600], 
-                    fontFamily: fontFamily.regular 
-                  }}>
-                    {market.address}
+                  >
+                    {item.address}
                   </Text>
               </View>
             </Callout>

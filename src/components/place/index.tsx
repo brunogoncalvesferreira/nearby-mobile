@@ -18,6 +18,7 @@ type Props = TouchableOpacityProps & {
 }
 
 export function Place({ data, ...rest }: Props) {
+
   return (
     <TouchableOpacity style={s.container} {...rest}>
       <Image style={s.image} source={{ uri: data.cover }}/>
